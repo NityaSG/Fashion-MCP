@@ -1,0 +1,2165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fashion Trends</title>
+<style>
+:root{
+  --bg:#fffaf4;
+  --card:#fffdf9;
+  --card-soft:#fff8f1;
+  --line:#eaded1;
+  --line-strong:#d9c4af;
+  --ink:#221812;
+  --muted:#78665b;
+  --accent:#d56b46;
+  --accent-soft:#f6ddd1;
+  --accent-deep:#a8492b;
+  --shadow:0 18px 40px rgba(93,56,34,.10);
+  --shadow-deep:0 34px 78px rgba(82,49,28,.12);
+  --radius-lg:24px;
+  --radius-md:18px;
+  --radius-sm:12px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  background:
+    radial-gradient(circle at top right, rgba(231,172,141,.18), transparent 34%),
+    radial-gradient(circle at left 14%, rgba(208,164,129,.12), transparent 26%),
+    linear-gradient(180deg, #fffdf9 0%, var(--bg) 100%);
+  color:var(--ink);
+  font-family:"Avenir Next","Optima","Segoe UI",sans-serif;
+  font-size:14px;
+  line-height:1.45;
+}
+
+#root{padding:12px}
+
+.shell{
+  --local-accent:var(--accent);
+  position:relative;
+  isolation:isolate;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  box-shadow:var(--shadow), var(--shadow-deep);
+  animation:shell-enter .34s cubic-bezier(.16,.84,.31,.99);
+}
+
+.shell::before{
+  content:"";
+  position:absolute;
+  inset:-14% auto auto -7%;
+  width:240px;
+  height:240px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(241,204,177,.62) 0%, rgba(241,204,177,0) 72%);
+  pointer-events:none;
+  z-index:0;
+}
+
+.shell::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.32), rgba(255,255,255,0) 36%),
+    linear-gradient(115deg, rgba(255,255,255,0) 52%, rgba(255,255,255,.22) 70%, rgba(255,255,255,0) 88%);
+  pointer-events:none;
+  z-index:0;
+}
+
+.hero,
+.content,
+.actions{
+  position:relative;
+  z-index:1;
+}
+
+.hero{
+  padding:18px 20px 16px;
+  background:
+    radial-gradient(circle at 92% 16%, rgba(255,237,222,.9) 0%, rgba(255,237,222,0) 28%),
+    linear-gradient(135deg, rgba(255,255,255,.96), rgba(255,248,242,.95)),
+    linear-gradient(120deg, rgba(213,107,70,.08), rgba(213,107,70,0));
+  border-bottom:1px solid var(--line);
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.22) 46%, rgba(255,255,255,0) 100%),
+    linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.12));
+  opacity:.75;
+  pointer-events:none;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:auto 18px 0 18px;
+  height:3px;
+  background:linear-gradient(90deg, var(--local-accent), transparent);
+  opacity:.72;
+}
+
+.eyebrow{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-weight:700;
+  color:var(--accent-deep);
+  margin-bottom:6px;
+}
+
+.title{
+  font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+  font-size:29px;
+  line-height:1.05;
+  letter-spacing:-.02em;
+  max-width:12ch;
+}
+
+.subtitle{
+  margin-top:8px;
+  color:var(--muted);
+  font-size:12px;
+  max-width:56ch;
+}
+
+.hero-meta{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin-top:14px;
+}
+
+.meta-chip{
+  padding:10px 12px;
+  border:1px solid rgba(217,196,175,.72);
+  border-radius:14px;
+  background:rgba(255,255,255,.76);
+  backdrop-filter:blur(10px);
+  box-shadow:0 10px 24px rgba(110,71,49,.06);
+}
+
+.meta-label{
+  color:var(--muted);
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-weight:700;
+}
+
+.meta-value{
+  margin-top:5px;
+  font-size:17px;
+  font-weight:800;
+  line-height:1.05;
+}
+
+.meta-copy{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.content{
+  padding:20px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.2), rgba(255,249,243,.56));
+}
+
+.section-label{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-weight:700;
+  color:var(--muted);
+  margin-bottom:8px;
+}
+
+.section-label::after{
+  content:"";
+  flex:1;
+  height:1px;
+  background:linear-gradient(90deg, rgba(217,196,175,.72), rgba(217,196,175,0));
+}
+
+.tag-row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:16px;
+}
+
+.tag{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  border:1px solid var(--line);
+  background:#fff7f1;
+  color:#67493a;
+  padding:5px 10px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:600;
+}
+
+.tag.muted{
+  background:#fff;
+}
+
+.brief-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin-bottom:18px;
+}
+
+.brief-card{
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,247,240,.92));
+  box-shadow:0 10px 24px rgba(110,71,49,.05);
+}
+
+.brief-kicker{
+  color:var(--muted);
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-weight:700;
+}
+
+.brief-value{
+  margin-top:7px;
+  font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+  font-size:21px;
+  line-height:1.02;
+}
+
+.brief-copy{
+  margin-top:7px;
+  color:#5f4d42;
+  font-size:12px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin-bottom:18px;
+}
+
+.stat{
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,248,243,.9));
+  box-shadow:0 10px 24px rgba(110,71,49,.05);
+}
+
+.stat-kicker{
+  color:var(--muted);
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-weight:700;
+  margin-bottom:4px;
+}
+
+.stat-value{
+  font-size:22px;
+  font-weight:700;
+  line-height:1;
+}
+
+.stat-copy{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:5px;
+}
+
+.swatch-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(152px,1fr));
+  gap:12px;
+}
+
+.swatch-card{
+  border:1px solid var(--line);
+  border-radius:18px;
+  overflow:hidden;
+  background:#fff;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  animation:card-rise .36s ease both;
+}
+
+.swatch{
+  height:112px;
+  padding:12px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+}
+
+.swatch-rank,
+.swatch-share{
+  background:rgba(255,255,255,.82);
+  border-radius:999px;
+  padding:4px 8px;
+  font-size:11px;
+  font-weight:700;
+  box-shadow:0 6px 12px rgba(0,0,0,.08);
+}
+
+.swatch-meta{padding:12px}
+
+.swatch-name{
+  font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+  font-size:18px;
+  line-height:1.05;
+}
+
+.swatch-note{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px;
+}
+
+.metric-row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:10px;
+  padding-top:10px;
+  border-top:1px dashed var(--line);
+  font-size:11px;
+  color:var(--muted);
+}
+
+.metric-row strong{
+  color:var(--ink);
+  font-size:12px;
+}
+
+.thumb-strip{
+  display:flex;
+  gap:6px;
+  margin-top:10px;
+}
+
+.thumb{
+  width:40px;
+  height:40px;
+  border-radius:10px;
+  overflow:hidden;
+  background:#f3ece5;
+  border:1px solid var(--line);
+  cursor:pointer;
+  flex-shrink:0;
+  transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform .2s ease;
+}
+
+.post-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(185px,1fr));
+  gap:12px;
+}
+
+.post-card{
+  border:1px solid var(--line);
+  border-radius:20px;
+  overflow:hidden;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  animation:card-rise .36s ease both;
+}
+
+.post-media{
+  aspect-ratio:4/5;
+  position:relative;
+  background:linear-gradient(135deg, #f5ece4, #ebddd1);
+  cursor:pointer;
+}
+
+.post-media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform .24s ease;
+}
+
+.score-chip{
+  position:absolute;
+  top:10px;
+  right:10px;
+  padding:5px 9px;
+  border-radius:999px;
+  background:rgba(34,24,18,.8);
+  color:#fff;
+  font-size:11px;
+  font-weight:700;
+  backdrop-filter:blur(8px);
+}
+
+.post-copy{padding:12px}
+
+.post-title{
+  font-size:14px;
+  font-weight:700;
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+
+.post-subtitle{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px;
+}
+
+.post-desc{
+  margin-top:10px;
+  color:#5f4d42;
+  font-size:12px;
+}
+
+.pill-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:10px;
+}
+
+.pill{
+  font-size:10px;
+  border:1px solid var(--line);
+  background:#fff8f2;
+  color:#75563f;
+  padding:4px 7px;
+  border-radius:999px;
+  font-weight:600;
+}
+
+.entity-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.entity-row{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:12px;
+  align-items:center;
+  padding:12px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#fff;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  animation:card-rise .36s ease both;
+}
+
+.entity-rank{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  font-weight:800;
+  color:#fff;
+  background:linear-gradient(135deg, var(--accent-deep), var(--local-accent));
+}
+
+.entity-name{
+  font-weight:700;
+  font-size:15px;
+}
+
+.entity-handle{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+.entity-side{
+  text-align:right;
+}
+
+.entity-score{
+  font-size:20px;
+  font-weight:800;
+  line-height:1;
+}
+
+.entity-copy{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px;
+}
+
+.trend-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.trend-row{
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#fff;
+  padding:12px;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  animation:card-rise .36s ease both;
+}
+
+.trend-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-end;
+}
+
+.trend-name{
+  font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+  font-size:19px;
+  line-height:1.05;
+}
+
+.trend-metrics{
+  text-align:right;
+  font-size:11px;
+  color:var(--muted);
+}
+
+.bar-track{
+  margin-top:10px;
+  height:8px;
+  border-radius:999px;
+  overflow:hidden;
+  background:#f0e5db;
+}
+
+.bar-fill{
+  height:100%;
+  border-radius:999px;
+  background:linear-gradient(90deg, var(--local-accent), #efb698);
+}
+
+.comparison-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:10px;
+}
+
+.month-card{
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#fff;
+  padding:12px;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  animation:card-rise .36s ease both;
+}
+
+.month-label{
+  font-size:11px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-weight:700;
+}
+
+.month-value{
+  margin-top:8px;
+  font-size:26px;
+  font-weight:800;
+  line-height:1;
+}
+
+.month-meta{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:6px;
+}
+
+.period-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+  gap:10px;
+}
+
+.period-card{
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#fff;
+  padding:12px;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  animation:card-rise .36s ease both;
+}
+
+.period-list{
+  margin-top:10px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.period-item{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  font-size:12px;
+}
+
+.period-item strong{
+  font-weight:700;
+}
+
+.distribution{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.distribution-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:10px;
+  align-items:center;
+}
+
+.distribution-label{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+
+.distribution-name{
+  font-size:12px;
+  font-weight:700;
+}
+
+.distribution-value{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:700;
+}
+
+.analyst-note{
+  margin-bottom:18px;
+  padding:14px 16px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:linear-gradient(180deg, rgba(255,249,243,.96), rgba(255,255,255,.96));
+  box-shadow:0 14px 32px rgba(110,71,49,.05);
+}
+
+.analyst-note[data-tone="good"]{
+  background:linear-gradient(180deg, rgba(245,255,249,.96), rgba(255,255,255,.96));
+  border-color:#cfe5d7;
+}
+
+.analyst-note[data-tone="watch"]{
+  background:linear-gradient(180deg, rgba(255,245,241,.96), rgba(255,255,255,.96));
+  border-color:#efc6b8;
+}
+
+.note-title{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-weight:700;
+  color:var(--accent-deep);
+}
+
+.note-summary{
+  margin-top:8px;
+  font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+  font-size:21px;
+  line-height:1.08;
+}
+
+.note-list{
+  display:grid;
+  gap:8px;
+  margin-top:12px;
+}
+
+.note-item{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:9px;
+  align-items:flex-start;
+  color:#5f4d42;
+  font-size:12px;
+}
+
+.note-marker{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  margin-top:4px;
+  background:linear-gradient(135deg, var(--local-accent), var(--accent-deep));
+}
+
+.table-wrap{
+  border:1px solid var(--line);
+  border-radius:18px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:0 12px 28px rgba(110,71,49,.05);
+  animation:card-rise .36s ease both;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+}
+
+th,td{
+  padding:11px 12px;
+  text-align:left;
+  vertical-align:top;
+  border-bottom:1px solid #efe5db;
+}
+
+th{
+  background:#fff8f1;
+  color:#765f4e;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:10px;
+}
+
+tr:last-child td{border-bottom:none}
+
+.cell-clip{
+  max-width:200px;
+  color:#5f4d42;
+  word-break:break-word;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  padding:14px 18px 18px;
+  border-top:1px solid var(--line);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.34), rgba(255,246,238,.92));
+  backdrop-filter:blur(12px);
+}
+
+.btn{
+  flex:1;
+  min-width:0;
+  position:relative;
+  border-radius:14px;
+  border:1px solid var(--line-strong);
+  padding:10px 12px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  letter-spacing:.01em;
+  transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease, background .15s ease;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 10px 18px rgba(110,71,49,.08);
+}
+
+.btn:disabled{
+  opacity:.72;
+  cursor:default;
+  transform:none;
+  box-shadow:none;
+}
+
+.btn.primary{
+  background:linear-gradient(135deg, var(--local-accent), var(--accent-deep));
+  color:#fff;
+  border-color:transparent;
+}
+
+.btn.secondary{
+  background:#fff;
+  color:var(--ink);
+}
+
+.btn.is-loading{
+  position:relative;
+  color:transparent !important;
+  pointer-events:none;
+}
+
+.btn.is-loading::after{
+  content:"Loading";
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--ink);
+}
+
+.btn.primary.is-loading::after{
+  color:#fff;
+}
+
+.empty,
+.error{
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px;
+  background:#fff;
+  box-shadow:0 14px 32px rgba(110,71,49,.05);
+}
+
+.error{
+  background:#fff6f4;
+  border-color:#f2c7bb;
+}
+
+.empty-title,
+.error-title{
+  font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;
+  font-size:20px;
+}
+
+.empty-copy,
+.error-copy{
+  margin-top:8px;
+  color:var(--muted);
+}
+
+.mono{
+  font-family:"SFMono-Regular","Consolas","Liberation Mono",monospace;
+}
+
+.swatch-card:hover,
+.post-card:hover,
+.entity-row:hover,
+.trend-row:hover,
+.month-card:hover,
+.period-card:hover,
+.brief-card:hover,
+.stat:hover,
+.analyst-note:hover{
+  transform:translateY(-2px);
+  border-color:var(--line-strong);
+  box-shadow:0 18px 34px rgba(110,71,49,.10);
+}
+
+.post-card:hover .post-media img,
+.thumb:hover img{
+  transform:scale(1.03);
+}
+
+.thumb:hover{
+  transform:translateY(-1px);
+  border-color:var(--line-strong);
+  box-shadow:0 10px 18px rgba(110,71,49,.08);
+}
+
+.thumb:disabled{
+  opacity:.72;
+  cursor:default;
+}
+
+@keyframes shell-enter{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes card-rise{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@media (max-width: 720px){
+  .title{font-size:23px}
+  .hero-meta,
+  .brief-grid,
+  .stats{grid-template-columns:1fr}
+  .actions{flex-direction:column}
+  .comparison-grid,
+  .period-grid,
+  .post-grid,
+  .swatch-grid{grid-template-columns:1fr}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,
+  *::before,
+  *::after{
+    animation:none !important;
+    transition:none !important;
+  }
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="module">
+let rpcId = 0;
+const pendingRequests = new Map();
+let currentStructuredContent = null;
+let resizeObserver = null;
+let resizeQueued = false;
+let pendingAction = null;
+
+function rpcNotify(method, params = {}) {
+  window.parent.postMessage({ jsonrpc: "2.0", method, params }, "*");
+}
+
+function rpcRequest(method, params = {}) {
+  return new Promise((resolve, reject) => {
+    const id = ++rpcId;
+    pendingRequests.set(id, { resolve, reject });
+    window.parent.postMessage({ jsonrpc: "2.0", id, method, params }, "*");
+  });
+}
+
+window.addEventListener(
+  "message",
+  (event) => {
+    if (event.source !== window.parent) return;
+    const message = event.data;
+    if (!message || message.jsonrpc !== "2.0") return;
+
+    if (typeof message.id === "number") {
+      const pending = pendingRequests.get(message.id);
+      if (!pending) return;
+      pendingRequests.delete(message.id);
+      if (message.error) {
+        pending.reject(message.error);
+      } else {
+        pending.resolve(message.result);
+      }
+      return;
+    }
+
+    if (message.method === "ui/notifications/tool-result") {
+      handleToolResult(message.params);
+    }
+  },
+  { passive: true }
+);
+
+function ensureResizeObserver() {
+  if (resizeObserver) return;
+  resizeObserver = new ResizeObserver(() => scheduleResize());
+  resizeObserver.observe(document.documentElement);
+  resizeObserver.observe(document.body);
+}
+
+function scheduleResize() {
+  if (resizeQueued) return;
+  resizeQueued = true;
+  requestAnimationFrame(() => {
+    resizeQueued = false;
+    const width = Math.ceil(document.documentElement.getBoundingClientRect().width);
+    const height = Math.ceil(document.documentElement.getBoundingClientRect().height);
+    rpcNotify("ui/notifications/size-changed", { width, height });
+  });
+}
+
+async function initBridge() {
+  try {
+    await rpcRequest("ui/initialize", {
+      appInfo: { name: "fashion-trends-ui", version: "1.1.0" },
+      appCapabilities: {},
+      protocolVersion: "2026-01-26",
+    });
+    rpcNotify("ui/notifications/initialized", {});
+    ensureResizeObserver();
+    scheduleResize();
+  } catch (error) {
+    console.error("Bridge initialization failed:", error);
+  }
+}
+
+async function callTool(name, args) {
+  const result = await rpcRequest("tools/call", { name, arguments: args });
+  handleToolResult(result);
+  return result;
+}
+
+function sendMessage(text) {
+  return rpcRequest("ui/message", {
+    role: "user",
+    content: [{ type: "text", text }],
+  }).catch((error) => {
+    console.error("Unable to send message to host:", error);
+  });
+}
+
+function openLink(url) {
+  return rpcRequest("ui/open-link", { url }).catch((error) => {
+    console.error("Unable to open link:", error);
+  });
+}
+
+function esc(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function safeArray(value) {
+  return Array.isArray(value) ? value : [];
+}
+
+function compactNumber(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return "0";
+  if (number >= 1000000) return `${(number / 1000000).toFixed(1)}M`;
+  if (number >= 1000) return `${(number / 1000).toFixed(1)}K`;
+  return Math.round(number).toLocaleString();
+}
+
+function formatPct(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return "0%";
+  return `${number.toFixed(1)}%`;
+}
+
+function formatMaybe(value) {
+  if (value === null || value === undefined || value === "") return "-";
+  if (Array.isArray(value)) return value.join(", ");
+  if (typeof value === "object") return JSON.stringify(value);
+  return String(value);
+}
+
+function humanizeToken(value) {
+  const text = String(value ?? "").trim();
+  if (!text) return "";
+  const spaced = text.replaceAll("_", " ");
+  if (spaced === spaced.toLowerCase()) {
+    return `${spaced.charAt(0).toUpperCase()}${spaced.slice(1)}`;
+  }
+  return spaced;
+}
+
+function numberOrZero(value) {
+  const number = Number(value);
+  return Number.isFinite(number) ? number : 0;
+}
+
+function roundTo(value, digits = 1) {
+  const factor = 10 ** digits;
+  return Math.round(numberOrZero(value) * factor) / factor;
+}
+
+function pluralize(count, singular, plural = `${singular}s`) {
+  return `${compactNumber(count)} ${count === 1 ? singular : plural}`;
+}
+
+function sumBy(items, field) {
+  return safeArray(items).reduce((sum, item) => sum + numberOrZero(item?.[field]), 0);
+}
+
+function averageBy(items, field) {
+  const list = safeArray(items);
+  return list.length ? sumBy(list, field) / list.length : 0;
+}
+
+function topValues(items, field, limit = 3) {
+  const counts = new Map();
+  safeArray(items).forEach((item) => {
+    const label = String(item?.[field] ?? "").trim();
+    if (!label) return;
+    counts.set(label, (counts.get(label) || 0) + 1);
+  });
+  return [...counts.entries()]
+    .sort((left, right) => right[1] - left[1])
+    .slice(0, limit)
+    .map(([label, count]) => ({ label, count }));
+}
+
+function joinNatural(values = []) {
+  const list = safeArray(values).filter(Boolean);
+  if (!list.length) return "";
+  if (list.length === 1) return list[0];
+  if (list.length === 2) return `${list[0]} and ${list[1]}`;
+  return `${list.slice(0, -1).join(", ")}, and ${list[list.length - 1]}`;
+}
+
+function topBarWidth(items, field) {
+  const values = items.map((item) => Number(item[field]) || 0);
+  const max = Math.max(...values, 1);
+  return (value) => `${Math.max(10, ((Number(value) || 0) / max) * 100)}%`;
+}
+
+function renderTags(filters = {}, queryLabel = null) {
+  const tags = [];
+  if (filters.category) tags.push(`<span class="tag">${esc(filters.category)}</span>`);
+  if (filters.gender) tags.push(`<span class="tag muted">${esc(filters.gender)}</span>`);
+  if (filters.time_period) tags.push(`<span class="tag muted">${esc(humanizeToken(filters.time_period))}</span>`);
+  if (filters.source_filter) tags.push(`<span class="tag muted">${esc(humanizeToken(filters.source_filter))}</span>`);
+  if (filters.metric) tags.push(`<span class="tag muted">${esc(humanizeToken(filters.metric))}</span>`);
+  if (queryLabel) tags.push(`<span class="tag">${esc(queryLabel)}</span>`);
+  return tags.length ? `<div class="tag-row">${tags.join("")}</div>` : "";
+}
+
+function renderThumbStrip(images = [], links = []) {
+  const thumbs = images.slice(0, 3).map((imageUrl, index) => {
+    const permalink = links[index] || "";
+    return `
+      <button class="thumb" type="button" data-open-url="${esc(permalink)}" ${permalink ? "" : "disabled"}>
+        <img src="${esc(imageUrl)}" alt="">
+      </button>
+    `;
+  });
+  return thumbs.length ? `<div class="thumb-strip">${thumbs.join("")}</div>` : "";
+}
+
+function renderHeroMeta(items = []) {
+  const visibleItems = safeArray(items).filter((item) => item && item.value !== null && item.value !== undefined && item.value !== "");
+  if (!visibleItems.length) return "";
+  return `
+    <div class="hero-meta">
+      ${visibleItems.map((item) => `
+        <div class="meta-chip">
+          <div class="meta-label">${esc(item.label)}</div>
+          <div class="meta-value">${esc(item.value)}</div>
+          ${item.copy ? `<div class="meta-copy">${esc(item.copy)}</div>` : ""}
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderBriefGrid(cards = []) {
+  const visibleCards = safeArray(cards).filter((card) => card && card.value !== null && card.value !== undefined && card.value !== "");
+  if (!visibleCards.length) return "";
+  return `
+    <div class="brief-grid">
+      ${visibleCards.map((card) => `
+        <article class="brief-card">
+          <div class="brief-kicker">${esc(card.label)}</div>
+          <div class="brief-value">${esc(card.value)}</div>
+          ${card.copy ? `<div class="brief-copy">${esc(card.copy)}</div>` : ""}
+        </article>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderAnalystNote({ title, summary, lines = [], tone = "neutral" }) {
+  const points = safeArray(lines).filter(Boolean);
+  return `
+    <section class="analyst-note" data-tone="${esc(tone)}">
+      <div class="note-title">${esc(title)}</div>
+      <div class="note-summary">${esc(summary)}</div>
+      ${points.length ? `
+        <div class="note-list">
+          ${points.map((line) => `
+            <div class="note-item">
+              <span class="note-marker"></span>
+              <span>${esc(line)}</span>
+            </div>
+          `).join("")}
+        </div>
+      ` : ""}
+    </section>
+  `;
+}
+
+function renderDefaultActions() {
+  return `
+    <button class="btn secondary" type="button" data-action="show-dataset-overview">Show dataset overview</button>
+    <button class="btn primary" type="button" data-action="refine-in-chat">Continue in chat</button>
+  `;
+}
+
+const ACCENTS = {
+  posts: "#7b553f",
+  rankings: "#55757e",
+  apparel: "#708355",
+  print_pattern: "#a65b3c",
+  fabric: "#4e7b72",
+  comparison: "#84684a",
+  dataset: "#67564e",
+  query: "#7a664d",
+  fallback: "#6d6258",
+  error: "#b45e48",
+  waiting: "#86624d",
+};
+
+function accentForBreakdown(kind) {
+  if (kind === "fabric") return ACCENTS.fabric;
+  if (kind === "print_pattern") return ACCENTS.print_pattern;
+  return ACCENTS.apparel;
+}
+
+function renderShell({ eyebrow, title, subtitle, accent = "var(--accent)", meta = "", body, actions = "" }) {
+  return `
+    <section class="shell" style="--local-accent:${accent}">
+      <header class="hero">
+        <div class="eyebrow">${esc(eyebrow)}</div>
+        <div class="title">${esc(title)}</div>
+        ${subtitle ? `<div class="subtitle">${esc(subtitle)}</div>` : ""}
+        ${meta}
+      </header>
+      <div class="content">${body}</div>
+      ${actions ? `<div class="actions">${actions}</div>` : ""}
+    </section>
+  `;
+}
+
+function renderColorTrends(data) {
+  const colors = safeArray(data.colors);
+  if (!colors.length) {
+    return renderEmpty("No color signal", "No color trend data was returned for this slice.", {
+      hint: "Try widening the time period or removing one filter to expose a broader color set.",
+    });
+  }
+
+  const leader = data.leader || colors[0];
+  const runnerUp = colors[1] || null;
+  const topThreeShare = roundTo(sumBy(colors.slice(0, 3), "contribution_percent"), 1);
+  const concentrationLabel = topThreeShare >= 60 ? "Tight lead pack" : topThreeShare >= 45 ? "Defined top tier" : "Open color field";
+  const brief = renderBriefGrid([
+    {
+      label: "Signal shape",
+      value: concentrationLabel,
+      copy: `Top 3 families account for ${formatPct(topThreeShare)} of visible color contribution.`,
+    },
+    {
+      label: "Primary cue",
+      value: leader.name,
+      copy: `${formatPct(leader.contribution_percent)} share across ${pluralize(leader.post_count, "post")}.`,
+    },
+    {
+      label: "Best challenger",
+      value: runnerUp ? runnerUp.name : "No runner-up",
+      copy: runnerUp ? `${formatPct(runnerUp.contribution_percent)} share with a score of ${runnerUp.trend_score.toFixed(1)}.` : "Broaden the slice to expose a second-wave palette.",
+    },
+  ]);
+  const note = renderAnalystNote({
+    title: "Analyst take",
+    summary: `${leader.name} is setting the palette tone for this slice.`,
+    lines: [
+      topThreeShare >= 60
+        ? "Color demand is concentrated, so saturation risk is higher if adjacent brands copy the same family too quickly."
+        : "Color demand is spread across multiple families, which leaves more room for differentiated palette edits.",
+      runnerUp
+        ? `${runnerUp.name} is the clearest secondary family to monitor for near-term assortment expansion.`
+        : "No meaningful challenger was returned, so widen filters before locking a palette narrative.",
+    ],
+    tone: topThreeShare >= 60 ? "watch" : "good",
+  });
+
+  const swatches = colors.map((color) => `
+    <article class="swatch-card">
+      <div class="swatch" style="background:${esc(color.hex)}">
+        <span class="swatch-rank">#${color.rank}</span>
+        <span class="swatch-share">${formatPct(color.contribution_percent)}</span>
+      </div>
+      <div class="swatch-meta">
+        <div class="swatch-name">${esc(color.name)}</div>
+        <div class="swatch-note">${esc(color.pantone_name || color.pantone_code || color.hex)}</div>
+        <div class="metric-row">
+          <span><strong>${color.trend_score.toFixed(1)}</strong> score</span>
+          <span><strong>${compactNumber(color.post_count)}</strong> posts</span>
+        </div>
+        ${renderThumbStrip(color.sample_images, color.sample_permalinks)}
+      </div>
+    </article>
+  `).join("");
+
+  const actions = `
+    <button class="btn secondary" type="button" data-action="show-related-posts">Show posts</button>
+    <button class="btn primary" type="button" data-action="compare-colors">Compare over time</button>
+  `;
+
+  return renderShell({
+    eyebrow: "Color intelligence",
+    title: data.title || "Color Momentum",
+    subtitle: `Leading palettes for ${data.period_label || "the selected period"}.`,
+    accent: leader.hex || "var(--accent)",
+    meta: renderHeroMeta([
+      { label: "Lead share", value: formatPct(leader.contribution_percent), copy: leader.name },
+      { label: "Families", value: String(colors.length), copy: data.period_label || "Selected period" },
+      { label: "Lead posts", value: compactNumber(leader.post_count), copy: `${leader.trend_score.toFixed(1)} trend score` },
+    ]),
+    body: `${renderTags(data.filters)}${brief}${note}<div class="section-label">Top families</div><div class="swatch-grid">${swatches}</div>`,
+    actions,
+  });
+}
+
+function renderPostGrid(data) {
+  const posts = safeArray(data.posts);
+  if (!posts.length) {
+    return renderEmpty("No posts found", "The query returned no matching posts.", {
+      hint: "Try a broader time period or remove one of the filters before drilling further.",
+    });
+  }
+
+  const stats = data.summary || {};
+  const averageScore = numberOrZero(stats.average_trend_score) || averageBy(posts, "trend_score");
+  const averageLikes = averageBy(posts, "likes");
+  const topApparel = topValues(posts, "apparel", 3);
+  const topFabric = topValues(posts, "fabric", 3);
+  const topPrint = topValues(posts, "print_name", 3);
+  const leadPost = posts[0];
+  const motifLabels = joinNatural([
+    topApparel[0]?.label,
+    topPrint[0]?.label,
+    topFabric[0]?.label,
+  ].filter(Boolean));
+  const brief = renderBriefGrid([
+    {
+      label: "Lead account",
+      value: leadPost.author,
+      copy: `${compactNumber(leadPost.likes)} likes on the top returned post.`,
+    },
+    {
+      label: "Dominant silhouette",
+      value: topApparel[0]?.label || "Mixed silhouettes",
+      copy: topApparel[0] ? `${pluralize(topApparel[0].count, "appearance")} across the visible cards.` : "No repeated apparel cue was visible.",
+    },
+    {
+      label: "Recurring styling cue",
+      value: topPrint[0]?.label || topFabric[0]?.label || "Mixed execution",
+      copy: motifLabels ? `Most repeated combination: ${motifLabels}.` : "Use a larger sample to surface recurring construction cues.",
+    },
+  ]);
+  const note = renderAnalystNote({
+    title: "What stands out",
+    summary: `High-performing posts are clustering around ${topApparel[0]?.label || "a mixed silhouette set"}.`,
+    lines: [
+      `${pluralize(posts.length, "post")} are averaging ${compactNumber(averageLikes)} likes and ${averageScore.toFixed(1)} in trend score.`,
+      motifLabels
+        ? `The visible creative pattern is ${motifLabels}. Use that mix to frame the next cut of analysis.`
+        : "The current sample is visually mixed, so it is better for inspiration scouting than for a single crisp trend claim.",
+    ],
+    tone: averageScore >= 25 ? "good" : "neutral",
+  });
+  const postCards = posts.map((post) => {
+    const pills = [
+      post.category,
+      post.apparel,
+      post.print_name,
+      post.fabric,
+    ].filter(Boolean).slice(0, 3);
+
+    return `
+      <article class="post-card">
+        <div class="post-media" data-open-url="${esc(post.permalink)}">
+          ${post.image_url ? `<img src="${esc(post.image_url)}" alt="${esc(post.author)}">` : ""}
+          <div class="score-chip">${post.trend_score.toFixed(1)} score</div>
+        </div>
+        <div class="post-copy">
+          <div class="post-title">${esc(post.author)}</div>
+          <div class="post-subtitle">${esc(post.post_date_label || "")} / ${compactNumber(post.likes)} likes</div>
+          <div class="post-desc">${esc(post.description || "No description available.")}</div>
+          ${pills.length ? `<div class="pill-row">${pills.map((pill) => `<span class="pill">${esc(pill)}</span>`).join("")}</div>` : ""}
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  const actions = `
+    <button class="btn secondary" type="button" data-action="show-colors">Show colors</button>
+    <button class="btn primary" type="button" data-action="show-brands">Show brands</button>
+  `;
+
+  return renderShell({
+    eyebrow: data.view === "search_results" ? "Keyword search" : "Post explorer",
+    title: data.title || "Trending Posts",
+    subtitle: `${compactNumber(stats.post_count || posts.length)} posts with an average trend score of ${averageScore.toFixed(1)}.`,
+    accent: ACCENTS.posts,
+    meta: renderHeroMeta([
+      { label: "Posts", value: compactNumber(stats.post_count || posts.length), copy: data.view === "search_results" ? "Matching results" : "Visible sample" },
+      { label: "Avg score", value: averageScore.toFixed(1), copy: "Trend score" },
+      { label: "Avg likes", value: compactNumber(averageLikes), copy: "Per visible post" },
+    ]),
+    body: `${renderTags(data.filters, data.query_label)}${brief}${note}<div class="post-grid">${postCards}</div>`,
+    actions,
+  });
+}
+
+function renderEntityRankings(data) {
+  const entities = safeArray(data.entities);
+  if (!entities.length) {
+    return renderEmpty("No rankings found", "No matching brands or influencers were returned.", {
+      hint: "Switch source or widen the time range before comparing leaderboards.",
+    });
+  }
+
+  const leader = data.leader || entities[0];
+  const runnerUp = entities[1] || null;
+  const totalScore = sumBy(entities, "total_trend_score");
+  const topThreeShare = totalScore ? roundTo((sumBy(entities.slice(0, 3), "total_trend_score") / totalScore) * 100, 1) : 0;
+  const leaderGap = runnerUp ? roundTo(leader.total_trend_score - runnerUp.total_trend_score, 1) : roundTo(leader.total_trend_score, 1);
+  const brief = renderBriefGrid([
+    {
+      label: "Concentration",
+      value: formatPct(topThreeShare),
+      copy: `Top 3 ${data.entity_type || "entities"} account for ${formatPct(topThreeShare)} of total visible trend score.`,
+    },
+    {
+      label: "Leader gap",
+      value: runnerUp ? leaderGap.toFixed(1) : "Solo lead",
+      copy: runnerUp ? `${leader.name} leads ${runnerUp.name} by ${leaderGap.toFixed(1)} score points.` : "Only one ranked result was returned.",
+    },
+    {
+      label: "Best next lens",
+      value: data.entity_type === "influencers" ? "Check brands" : "Check influencers",
+      copy: "Flip the leaderboard to see whether creator momentum matches brand momentum.",
+    },
+  ]);
+  const note = renderAnalystNote({
+    title: "Leaderboard read",
+    summary: `${leader.name} is the clearest momentum leader in this returned set.`,
+    lines: [
+      topThreeShare >= 60
+        ? "The leaderboard is concentrated, so the market signal is being driven by a small number of accounts."
+        : "The leaderboard is relatively open, which suggests multiple accounts are contributing to the trend.",
+      runnerUp
+        ? `${runnerUp.name} is close enough to matter, so compare creative strategy before assuming the leader is structurally dominant.`
+        : "There is not enough ranking depth yet to compare the leader against meaningful challengers.",
+    ],
+    tone: topThreeShare >= 60 ? "watch" : "good",
+  });
+  const body = `
+    ${renderTags(data.filters)}
+    ${brief}
+    ${note}
+    <div class="entity-list">
+      ${entities.map((entity) => `
+        <article class="entity-row">
+          <div class="entity-rank">${entity.rank}</div>
+          <div>
+            <div class="entity-name">${esc(entity.name)}</div>
+            <div class="entity-handle">${esc(entity.handle || "No handle")}</div>
+            ${renderThumbStrip(entity.sample_images, entity.sample_permalinks)}
+          </div>
+          <div class="entity-side">
+            <div class="entity-score">${entity.total_trend_score.toFixed(1)}</div>
+            <div class="entity-copy">${compactNumber(entity.post_count)} posts</div>
+          </div>
+        </article>
+      `).join("")}
+    </div>
+  `;
+
+  const toggleAction = data.entity_type === "influencers"
+    ? `<button class="btn secondary" type="button" data-action="show-brands">Show brands</button>`
+    : `<button class="btn secondary" type="button" data-action="show-influencers">Show influencers</button>`;
+  const actions = `
+    ${toggleAction}
+    <button class="btn primary" type="button" data-action="refine-in-chat">Refine in chat</button>
+  `;
+
+  return renderShell({
+    eyebrow: "Leaderboard",
+    title: data.title || "Top Entities",
+    subtitle: "Who is driving the strongest trend momentum right now.",
+    accent: ACCENTS.rankings,
+    meta: renderHeroMeta([
+      { label: "Leader", value: leader.name, copy: compactNumber(leader.post_count) + " posts" },
+      { label: "Lead score", value: leader.total_trend_score.toFixed(1), copy: humanizeToken(data.entity_type || "entities") },
+      { label: "Returned", value: String(entities.length), copy: "Ranked entities" },
+    ]),
+    body,
+    actions,
+  });
+}
+
+function renderTrendBreakdown(data) {
+  const items = safeArray(data.items);
+  if (!items.length) {
+    return renderEmpty("No trend breakdown", "The query returned no matching trend buckets.", {
+      hint: "Try a broader period or shift category filters before comparing buckets.",
+    });
+  }
+
+  const widthFor = topBarWidth(items, "total_trend_score");
+  const leader = data.leader || items[0];
+  const runnerUp = items[1] || null;
+  const totalPosts = sumBy(items, "post_count");
+  const topThreeShare = totalPosts ? roundTo((sumBy(items.slice(0, 3), "post_count") / totalPosts) * 100, 1) : 0;
+  const brief = renderBriefGrid([
+    {
+      label: "Lead item",
+      value: leader.label,
+      copy: `${pluralize(leader.post_count, "post")} with ${leader.total_trend_score.toFixed(1)} in trend score.`,
+    },
+    {
+      label: "Top 3 share",
+      value: formatPct(topThreeShare),
+      copy: "Share of returned post volume captured by the first 3 buckets.",
+    },
+    {
+      label: "Competition",
+      value: runnerUp ? runnerUp.label : "No runner-up",
+      copy: runnerUp ? `The next bucket trails by ${(leader.total_trend_score - runnerUp.total_trend_score).toFixed(1)} score points.` : "Only one bucket was returned.",
+    },
+  ]);
+  const note = renderAnalystNote({
+    title: "Category read",
+    summary: `${leader.label} is the clearest lead signal in this breakdown.`,
+    lines: [
+      topThreeShare >= 65
+        ? "A small cluster of buckets is carrying most of the visible volume, so the slice is converging around a narrow look."
+        : "Volume is spread across several buckets, which suggests the category is still rotating rather than locking into one shape.",
+      runnerUp
+        ? `${runnerUp.label} is the most credible adjacent direction to track next.`
+        : "There is not enough ranking depth yet to identify an adjacent challenger.",
+    ],
+    tone: topThreeShare >= 65 ? "watch" : "good",
+  });
+
+  const body = `
+    ${renderTags(data.filters)}
+    ${brief}
+    ${note}
+    <div class="trend-list">
+      ${items.map((item) => `
+        <article class="trend-row">
+          <div class="trend-top">
+            <div class="trend-name">${esc(item.label)}</div>
+            <div class="trend-metrics">${compactNumber(item.post_count)} posts / ${item.total_trend_score.toFixed(1)} score</div>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:${widthFor(item.total_trend_score)}"></div></div>
+          ${renderThumbStrip(item.sample_images, item.sample_permalinks)}
+        </article>
+      `).join("")}
+    </div>
+  `;
+
+  const actions = data.kind === "fabric"
+    ? `
+      <button class="btn secondary" type="button" data-action="show-related-posts">Show posts</button>
+      <button class="btn primary" type="button" data-action="show-colors">Show colors</button>
+    `
+    : `
+      <button class="btn secondary" type="button" data-action="show-related-posts">Show posts</button>
+      <button class="btn primary" type="button" data-action="compare-breakdown">Compare over time</button>
+    `;
+
+  return renderShell({
+    eyebrow: "Trend breakdown",
+    title: data.title || "Trend Breakdown",
+    subtitle: "Ranked buckets that explain what is rising fastest.",
+    accent: accentForBreakdown(data.kind),
+    meta: renderHeroMeta([
+      { label: "Leader", value: leader.label, copy: compactNumber(leader.post_count) + " posts" },
+      { label: "Lead score", value: leader.total_trend_score.toFixed(1), copy: "Trend score" },
+      { label: "Buckets", value: String(items.length), copy: "Returned results" },
+    ]),
+    body,
+    actions,
+  });
+}
+
+function renderTimeComparison(data) {
+  if (data.mode === "series") {
+    const series = safeArray(data.series);
+    if (!series.length) {
+      return renderEmpty("No comparison data", "No month-over-month trend data was returned.", {
+        hint: "Try a broader slice or compare a more active category.",
+      });
+    }
+
+    const latest = data.latest || series[series.length - 1];
+    const peak = [...series].sort((left, right) => numberOrZero(right.post_count) - numberOrZero(left.post_count))[0];
+    const direction = latest.growth_percent === null
+      ? "Baseline month"
+      : latest.growth_percent >= 10
+        ? "Acceleration"
+        : latest.growth_percent > 0
+          ? "Steady growth"
+          : latest.growth_percent === 0
+            ? "Flat movement"
+            : "Cooling";
+    const brief = renderBriefGrid([
+      {
+        label: "Current direction",
+        value: direction,
+        copy: latest.growth_percent === null ? "No prior month in the returned series." : `${latest.growth_percent.toFixed(2)}% vs the previous month.`,
+      },
+      {
+        label: "Peak month",
+        value: peak.month_label,
+        copy: `${pluralize(peak.post_count, "post")} with ${peak.avg_trend_score.toFixed(2)} average score.`,
+      },
+      {
+        label: "Latest engagement",
+        value: compactNumber(latest.total_likes),
+        copy: "Total likes in the latest returned month.",
+      },
+    ]);
+    const note = renderAnalystNote({
+      title: "Momentum read",
+      summary: `${latest.month_label} is currently showing ${direction.toLowerCase()}.`,
+      lines: [
+        latest.growth_percent !== null && latest.growth_percent > 0
+          ? "Volume is moving up, so this slice is still gaining attention rather than plateauing."
+          : latest.growth_percent === null
+            ? "This is the first month in the returned window, so use later months before drawing a trend slope."
+            : "Volume has softened, so focus on what changed in creative execution before assuming the trend is over.",
+        peak.month_label === latest.month_label
+          ? "The latest month is also the peak month, which reinforces current relevance."
+          : `${peak.month_label} remains the peak month, so compare the latest posts against that benchmark set.`,
+      ],
+      tone: latest.growth_percent !== null && latest.growth_percent < 0 ? "watch" : "good",
+    });
+    const maxPosts = Math.max(...series.map((row) => row.post_count), 1);
+    const cards = series.map((row) => `
+      <article class="month-card">
+        <div class="month-label">${esc(row.month_label)}</div>
+        <div class="month-value">${compactNumber(row.post_count)}</div>
+        <div class="bar-track" style="margin-top:12px"><div class="bar-fill" style="width:${Math.max(12, (row.post_count / maxPosts) * 100)}%"></div></div>
+        <div class="month-meta">${row.avg_trend_score.toFixed(2)} avg score</div>
+        <div class="month-meta">${compactNumber(row.total_likes)} likes</div>
+        <div class="month-meta">${row.growth_percent === null ? "Baseline month" : `${row.growth_percent.toFixed(2)}% vs prev.`}</div>
+      </article>
+    `).join("");
+
+    const actions = `
+      <button class="btn secondary" type="button" data-action="show-current-posts">Show current posts</button>
+      <button class="btn primary" type="button" data-action="refine-in-chat">Discuss changes</button>
+    `;
+
+    return renderShell({
+      eyebrow: "Momentum view",
+      title: data.title || "Trend Momentum",
+      subtitle: "Recent month-over-month movement for the selected slice.",
+      accent: ACCENTS.comparison,
+      meta: renderHeroMeta([
+        { label: "Latest month", value: latest.month_label, copy: pluralize(latest.post_count, "post") },
+        { label: "Growth", value: latest.growth_percent === null ? "Baseline" : `${latest.growth_percent.toFixed(2)}%`, copy: "Vs previous month" },
+        { label: "Avg score", value: latest.avg_trend_score.toFixed(2), copy: "Latest month" },
+      ]),
+      body: `${renderTags(data.filters)}${brief}${note}<div class="comparison-grid">${cards}</div>`,
+      actions,
+    });
+  }
+
+  const periods = safeArray(data.periods);
+  if (!periods.length) {
+    return renderEmpty("No comparison data", "No ranked monthly leaders were returned.", {
+      hint: "Use a broader or more active slice before comparing ranked monthly leaders.",
+    });
+  }
+
+  const latestPeriod = data.latest_period || periods[periods.length - 1];
+  const latestLeader = latestPeriod?.items?.[0] || null;
+  const previousLeader = periods[periods.length - 2]?.items?.[0] || null;
+  const leaderChanged = latestLeader && previousLeader ? latestLeader.label !== previousLeader.label : false;
+  const brief = renderBriefGrid([
+    {
+      label: "Current leader",
+      value: latestLeader?.label || "No leader",
+      copy: latestLeader ? `${pluralize(latestLeader.post_count, "post")} in ${latestPeriod.month_label}.` : "No ranked item returned.",
+    },
+    {
+      label: "Rotation",
+      value: leaderChanged ? "Leader changed" : "Leader held",
+      copy: previousLeader && latestLeader ? `${previousLeader.label} to ${latestLeader.label}.` : "Only one comparison period was returned.",
+    },
+    {
+      label: "Periods compared",
+      value: String(periods.length),
+      copy: humanizeToken(data.metric || "comparison"),
+    },
+  ]);
+  const note = renderAnalystNote({
+    title: "Shift read",
+    summary: latestLeader
+      ? `${latestLeader.label} is the current leader in ${latestPeriod.month_label}.`
+      : "No current leader was returned.",
+    lines: [
+      leaderChanged
+        ? "The leading item changed between the latest two periods, so the category is rotating rather than consolidating."
+        : "The same item remained in front, which suggests consistency rather than a sudden reset.",
+      previousLeader && latestLeader
+        ? `Compare the visual execution of ${previousLeader.label} and ${latestLeader.label} to understand what actually shifted.`
+        : "Use a longer comparison window to see whether this is a real change or a short-lived spike.",
+    ],
+    tone: leaderChanged ? "watch" : "good",
+  });
+  const body = `
+    ${renderTags(data.filters)}
+    ${brief}
+    ${note}
+    <div class="period-grid">
+      ${periods.map((period) => `
+        <article class="period-card">
+          <div class="month-label">${esc(period.month_label)}</div>
+          <div class="period-list">
+            ${safeArray(period.items).slice(0, 4).map((item) => `
+              <div class="period-item">
+                <strong>#${item.rank} ${esc(item.label)}</strong>
+                <span>${compactNumber(item.post_count)} posts</span>
+              </div>
+            `).join("")}
+          </div>
+        </article>
+      `).join("")}
+    </div>
+  `;
+
+  const actions = `
+    <button class="btn secondary" type="button" data-action="show-current-posts">Show current posts</button>
+    <button class="btn primary" type="button" data-action="refine-in-chat">Discuss changes</button>
+  `;
+
+  return renderShell({
+    eyebrow: "Comparison view",
+    title: data.title || "Comparison",
+    subtitle: "How the leading themes shifted over recent months.",
+    accent: ACCENTS.comparison,
+    meta: renderHeroMeta([
+      { label: "Latest leader", value: latestLeader?.label || "None", copy: latestPeriod?.month_label || "Latest period" },
+      { label: "Rotation", value: leaderChanged ? "Changed" : "Held", copy: previousLeader?.label || "No prior leader" },
+      { label: "Periods", value: String(periods.length), copy: "Compared months" },
+    ]),
+    body,
+    actions,
+  });
+}
+
+function renderDatabaseOverview(data) {
+  const overall = data.overall_stats || {};
+  const categories = safeArray(data.category_distribution);
+  const genders = safeArray(data.gender_distribution);
+  const categoryWidth = topBarWidth(categories, "post_count");
+  const genderWidth = topBarWidth(genders, "post_count");
+  const womenPosts = genders.find((item) => String(item.gender).toLowerCase() === "women")?.post_count;
+  const womenShare = numberOrZero(overall.total_unique_posts) ? roundTo((numberOrZero(womenPosts) / numberOrZero(overall.total_unique_posts)) * 100, 1) : 0;
+  const topCategory = categories[0] || null;
+  const brief = renderBriefGrid([
+    {
+      label: "Largest category",
+      value: topCategory?.category || "No category",
+      copy: topCategory ? pluralize(topCategory.post_count, "post") : "No category distribution returned.",
+    },
+    {
+      label: "Audience skew",
+      value: womenPosts ? `${formatPct(womenShare)} women` : "Mixed or unknown",
+      copy: "Based on the visible gender distribution.",
+    },
+    {
+      label: "Best next move",
+      value: "Check leaders",
+      copy: "Move from corpus shape into brands, influencers, or time comparison.",
+    },
+  ]);
+  const note = renderAnalystNote({
+    title: "Dataset read",
+    summary: `${compactNumber(overall.total_unique_posts)} unique posts are available in this trend corpus.`,
+    lines: [
+      topCategory
+        ? `${topCategory.category} is the biggest returned category, so it should usually be your benchmark slice.`
+        : "Category distribution was not returned, so inspect the raw corpus before comparing segments.",
+      womenPosts
+        ? `The visible gender mix skews toward women at ${formatPct(womenShare)}, which matters when interpreting all-category results.`
+        : "Gender distribution is incomplete, so avoid reading too much into corpus-level audience skew.",
+    ],
+    tone: "neutral",
+  });
+
+  const body = `
+    ${brief}
+    ${note}
+    <div class="section-label">Category distribution</div>
+    <div class="distribution">
+      ${categories.map((item) => `
+        <div class="distribution-row">
+          <div class="distribution-label">
+            <div class="distribution-name">${esc(item.category)}</div>
+            <div class="bar-track"><div class="bar-fill" style="width:${categoryWidth(item.post_count)}"></div></div>
+          </div>
+          <div class="distribution-value">${compactNumber(item.post_count)}</div>
+        </div>
+      `).join("")}
+    </div>
+    <div class="section-label" style="margin-top:18px">Gender distribution</div>
+    <div class="distribution">
+      ${genders.map((item) => `
+        <div class="distribution-row">
+          <div class="distribution-label">
+            <div class="distribution-name">${esc(item.gender)}</div>
+            <div class="bar-track"><div class="bar-fill" style="width:${genderWidth(item.post_count)}"></div></div>
+          </div>
+          <div class="distribution-value">${compactNumber(item.post_count)}</div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+
+  const actions = `
+    <button class="btn secondary" type="button" data-action="compare-posts">Compare posts</button>
+    <button class="btn primary" type="button" data-action="show-top-brands">Top brands</button>
+  `;
+
+  return renderShell({
+    eyebrow: "Dataset overview",
+    title: data.title || "Fashion Trend Dataset",
+    subtitle: "The overall size and shape of the trend corpus.",
+    accent: ACCENTS.dataset,
+    meta: renderHeroMeta([
+      { label: "Unique posts", value: compactNumber(overall.total_unique_posts), copy: "Corpus size" },
+      { label: "Brands", value: compactNumber(overall.total_brands), copy: compactNumber(overall.total_influencers) + " influencers" },
+      { label: "Categories", value: compactNumber(categories.length), copy: "Returned distributions" },
+    ]),
+    body,
+    actions,
+  });
+}
+
+function renderQueryResult(data) {
+  const columns = safeArray(data.columns);
+  const rows = safeArray(data.rows);
+  if (!columns.length || !rows.length) {
+    return renderEmpty("No table rows", "The query completed but returned no previewable rows.", {
+      hint: "Tighten or simplify the SQL, then rerun with a smaller exploratory query.",
+    });
+  }
+
+  const brief = renderBriefGrid([
+    {
+      label: "Preview mode",
+      value: data.truncated ? "Partial preview" : "Full preview",
+      copy: data.truncated ? `Showing the first ${rows.length} rows out of ${data.row_count}.` : "All returned rows fit inside the current preview.",
+    },
+    {
+      label: "Columns",
+      value: String(columns.length),
+      copy: joinNatural(columns.slice(0, 3).map(humanizeToken)) || "Structured result set",
+    },
+    {
+      label: "Best next move",
+      value: "Interpret in chat",
+      copy: "Use the preview to narrow the next SQL step or ask for a written takeaway.",
+    },
+  ]);
+
+  const table = `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>${columns.map((column) => `<th>${esc(column)}</th>`).join("")}</tr>
+        </thead>
+        <tbody>
+          ${rows.map((row) => `
+            <tr>
+              ${columns.map((column) => `<td><div class="cell-clip">${esc(formatMaybe(row[column]))}</div></td>`).join("")}
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+    ${data.truncated ? `<div class="subtitle" style="margin-top:10px">Showing the first ${rows.length} rows out of ${data.row_count}.</div>` : ""}
+  `;
+
+  return renderShell({
+    eyebrow: "Ad hoc analysis",
+    title: data.title || "Query Result",
+    subtitle: `${compactNumber(data.row_count)} rows returned.`,
+    accent: ACCENTS.query,
+    meta: renderHeroMeta([
+      { label: "Rows", value: compactNumber(data.row_count), copy: data.truncated ? "Previewed subset" : "Visible rows" },
+      { label: "Columns", value: String(columns.length), copy: "Returned fields" },
+      { label: "Mode", value: data.truncated ? "Preview" : "Complete", copy: "Current table view" },
+    ]),
+    body: `${data.request?.sql_query ? `<div class="tag-row"><span class="tag mono">${esc(data.request.sql_query)}</span></div>` : ""}${brief}${table}`,
+    actions: `
+      <button class="btn secondary" type="button" data-action="show-dataset-overview">Show dataset overview</button>
+      <button class="btn primary" type="button" data-action="refine-in-chat">Interpret in chat</button>
+    `,
+  });
+}
+
+function renderFallback(result) {
+  const textBlocks = safeArray(result?.content)
+    .filter((block) => block.type === "text" && block.text)
+    .map((block) => block.text);
+
+  return renderShell({
+    eyebrow: "Tool result",
+    title: "Text Output",
+    subtitle: "No widget payload was returned, so the raw tool text is shown.",
+    accent: ACCENTS.fallback,
+    body: `<div class="table-wrap" style="padding:14px"><div class="cell-clip mono">${esc(textBlocks.join("\n\n") || "No content received.")}</div></div>`,
+  });
+}
+
+function renderError(data) {
+  return renderShell({
+    eyebrow: "Tool error",
+    title: data.title || "Unable to render result",
+    subtitle: "The widget received an error instead of a data card.",
+    accent: ACCENTS.error,
+    body: `
+      <div class="error">
+        <div class="error-title">${esc(data.title || "Error")}</div>
+        <div class="error-copy">${esc(data.message || "Unknown error")}</div>
+      </div>
+    `,
+    actions: renderDefaultActions(),
+  });
+}
+
+function renderEmpty(title, copy, options = {}) {
+  const actions = options.actions || renderDefaultActions();
+  return renderShell({
+    eyebrow: options.eyebrow || "No data",
+    title,
+    subtitle: options.hint || "Try broadening the slice or switching to a nearby lens.",
+    accent: options.accent || ACCENTS.dataset,
+    body: `
+      <div class="empty">
+        <div class="empty-title">${esc(title)}</div>
+        <div class="empty-copy">${esc(copy)}</div>
+      </div>
+    `,
+    actions,
+  });
+}
+
+function renderStructuredContent(data) {
+  switch (data.type) {
+    case "color_trends":
+      return renderColorTrends(data);
+    case "post_grid":
+      return renderPostGrid(data);
+    case "entity_rankings":
+      return renderEntityRankings(data);
+    case "trend_breakdown":
+      return renderTrendBreakdown(data);
+    case "time_comparison":
+      return renderTimeComparison(data);
+    case "database_overview":
+      return renderDatabaseOverview(data);
+    case "query_result":
+      return renderQueryResult(data);
+    case "error":
+      return renderError(data);
+    default:
+      return renderFallback({ content: [{ type: "text", text: JSON.stringify(data, null, 2) }] });
+  }
+}
+
+function handleToolResult(result) {
+  currentStructuredContent = result?.structuredContent || null;
+  const root = document.getElementById("root");
+  root.innerHTML = currentStructuredContent
+    ? renderStructuredContent(currentStructuredContent)
+    : renderFallback(result);
+  bindInteractions();
+  scheduleResize();
+}
+
+function normalizedRequest(data = {}) {
+  return data.request || {};
+}
+
+function selectedFilters(data = {}) {
+  return data.filters || {};
+}
+
+function followUpPrompt(data) {
+  switch (data?.type) {
+    case "color_trends":
+      return "Summarize what these color leaders mean for an upcoming collection and point out any risks or overexposed palettes.";
+    case "post_grid":
+      return "Summarize the visual patterns across these posts and tell me what makes the strongest performers work.";
+    case "entity_rankings":
+      return "Explain what is driving this ranking and what strategic move stands out most.";
+    case "trend_breakdown":
+      return "Summarize what this breakdown suggests and recommend the next angle to investigate.";
+    case "time_comparison":
+      return "Explain the biggest month-over-month shift and why it matters.";
+    case "database_overview":
+      return "Turn this dataset overview into a quick analyst briefing.";
+    case "query_result":
+      return "Interpret this query result for a fashion analyst and suggest the most useful next query or tool call.";
+    case "error":
+      return "Explain what failed, what that implies, and which broader tool call should be tried next.";
+    default:
+      return "Continue the analysis and tell me what matters most here.";
+  }
+}
+
+function setPendingAction(action) {
+  pendingAction = action;
+  document.querySelectorAll("[data-action]").forEach((button) => {
+    const isActive = Boolean(action) && button.dataset.action === action;
+    button.disabled = Boolean(action);
+    button.classList.toggle("is-loading", isActive);
+  });
+}
+
+async function runAction(action) {
+  if (pendingAction) return;
+  const data = currentStructuredContent || {};
+  const request = normalizedRequest(data);
+  const filters = selectedFilters(data);
+
+  setPendingAction(action);
+  try {
+    switch (action) {
+      case "show-related-posts":
+        await callTool("get_trending_posts", {
+          category: request.category || filters.category || undefined,
+          gender: request.gender || filters.gender || undefined,
+          time_period: request.time_period || filters.time_period || "last_month",
+          limit: 12,
+        });
+        return;
+      case "compare-colors":
+        await callTool("compare_time_periods", {
+          metric: "colors",
+          category: request.category || filters.category || undefined,
+          gender: request.gender || filters.gender || undefined,
+        });
+        return;
+      case "compare-breakdown": {
+        const metric = data.kind === "apparel" ? "apparel" : data.kind === "print_pattern" ? "prints" : null;
+        if (metric) {
+          await callTool("compare_time_periods", {
+            metric,
+            category: request.category || filters.category || undefined,
+            gender: request.gender || filters.gender || undefined,
+          });
+        } else {
+          await sendMessage("Compare this trend over time and tell me whether it is strengthening, flattening, or fading.");
+        }
+        return;
+      }
+      case "show-colors":
+        await callTool("get_color_trends", {
+          category: request.category || filters.category || undefined,
+          gender: request.gender || filters.gender || undefined,
+          time_period: request.time_period || filters.time_period || "last_month",
+          limit: 8,
+        });
+        return;
+      case "show-rankings":
+      case "show-brands":
+        await callTool("get_top_brands_or_influencers", {
+          entity_type: "brands",
+          category: request.category || filters.category || undefined,
+          time_period: request.time_period || filters.time_period || "last_month",
+          source_filter: request.source_filter || filters.source_filter || undefined,
+          limit: 10,
+        });
+        return;
+      case "show-influencers":
+        await callTool("get_top_brands_or_influencers", {
+          entity_type: "influencers",
+          category: request.category || filters.category || undefined,
+          time_period: request.time_period || filters.time_period || "last_month",
+          source_filter: request.source_filter || filters.source_filter || undefined,
+          limit: 10,
+        });
+        return;
+      case "show-current-posts":
+        await callTool("get_trending_posts", {
+          category: request.category || filters.category || undefined,
+          gender: request.gender || filters.gender || undefined,
+          time_period: request.time_period || filters.time_period || "last_month",
+          limit: 12,
+        });
+        return;
+      case "compare-posts":
+        await callTool("compare_time_periods", {
+          metric: "posts",
+          category: request.category || filters.category || undefined,
+          gender: request.gender || filters.gender || undefined,
+        });
+        return;
+      case "show-top-brands":
+        await callTool("get_top_brands_or_influencers", {
+          entity_type: "brands",
+          category: request.category || filters.category || undefined,
+          time_period: request.time_period || filters.time_period || "last_month",
+          source_filter: request.source_filter || filters.source_filter || undefined,
+          limit: 10,
+        });
+        return;
+      case "show-dataset-overview":
+        await callTool("get_database_statistics", {});
+        return;
+      case "refine-in-chat":
+        await sendMessage(followUpPrompt(data));
+        return;
+      default:
+        break;
+    }
+  } finally {
+    setPendingAction(null);
+  }
+}
+
+function bindInteractions() {
+  document.querySelectorAll("[data-open-url]").forEach((element) => {
+    element.addEventListener("click", (event) => {
+      const url = event.currentTarget.dataset.openUrl;
+      if (url) {
+        openLink(url);
+      }
+    });
+  });
+
+  document.querySelectorAll("[data-action]").forEach((button) => {
+    button.addEventListener("click", () => {
+      runAction(button.dataset.action).catch((error) => {
+        console.error("Widget action failed:", error);
+      });
+    });
+  });
+
+  setPendingAction(pendingAction);
+}
+
+document.getElementById("root").innerHTML = renderShell({
+  eyebrow: "Waiting for data",
+  title: "Fashion trend cards",
+  subtitle: "The widget is ready and waiting for a tool result.",
+  accent: ACCENTS.waiting,
+  body: `<div class="empty"><div class="empty-title">Connected widget shell</div><div class="empty-copy">Once the host calls a tool, the result will render here.</div></div>`,
+});
+
+initBridge().catch(console.error);
+</script>
+</body>
+</html>

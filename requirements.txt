@@ -1,0 +1,16 @@
+# Fashion Trends MCP Server - Python Dependencies
+
+# Core MCP framework
+fastmcp>=2.14.0
+
+# Database connectivity
+asyncpg>=0.29.0
+
+# Environment/config helpers used by scripts
+python-dotenv>=1.0.0
+
+# Imported directly by the backend
+pydantic>=2.0.0
+
+# Python 3.10+ required
+# Ensure you have: python --version >= 3.10

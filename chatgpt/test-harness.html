@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fashion Trends Widget Harness</title>
+<style>
+:root{
+  color-scheme:light;
+  --bg:#f5efe7;
+  --panel:#fffdf9;
+  --ink:#1f1d1a;
+  --muted:#6a635b;
+  --line:#dfd4c6;
+  --accent:#a55133;
+  --accent-soft:#f1d4c3;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at top left,#f6dcc7 0,transparent 34%),
+    radial-gradient(circle at bottom right,#e8d6c6 0,transparent 28%),
+    var(--bg);
+}
+.shell{
+  max-width:1380px;
+  margin:0 auto;
+  padding:24px;
+  display:grid;
+  gap:20px;
+  grid-template-columns:320px minmax(0,1fr);
+}
+.panel{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:22px;
+  box-shadow:0 20px 60px rgba(60,36,12,.08);
+}
+.sidebar{
+  padding:20px;
+  align-self:start;
+  position:sticky;
+  top:24px;
+}
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 11px;
+  border-radius:999px;
+  background:var(--accent-soft);
+  color:#7a3821;
+  font-size:12px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+h1{
+  margin:14px 0 8px;
+  font-size:32px;
+  line-height:1.04;
+  font-family:Georgia,"Times New Roman",serif;
+}
+.copy{
+  margin:0 0 18px;
+  color:var(--muted);
+  line-height:1.55;
+  font-size:14px;
+}
+.section-label{
+  margin:18px 0 10px;
+  font-size:12px;
+  font-weight:700;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.controls{
+  display:grid;
+  gap:10px;
+}
+button{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px 14px;
+  text-align:left;
+  background:#fff;
+  color:var(--ink);
+  font:inherit;
+  cursor:pointer;
+  transition:transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+button:hover{
+  transform:translateY(-1px);
+  border-color:#d1b39d;
+  box-shadow:0 10px 24px rgba(81,45,20,.08);
+}
+button strong{
+  display:block;
+  margin-bottom:4px;
+  font-size:14px;
+}
+button span{
+  display:block;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.4;
+}
+.meta{
+  display:grid;
+  gap:10px;
+  margin-top:18px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+}
+.meta-item{
+  padding:10px 12px;
+  border-radius:14px;
+  background:#faf6f0;
+}
+.meta-item strong{
+  display:block;
+  margin-bottom:3px;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:var(--muted);
+}
+.meta-item span{
+  font-size:13px;
+}
+.main{
+  display:grid;
+  gap:20px;
+}
+.frame-card{
+  overflow:hidden;
+}
+.frame-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  padding:18px 20px;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,#fffaf4 0,#f9f1e8 100%);
+}
+.frame-title{
+  font-size:18px;
+  font-weight:700;
+}
+.frame-subtitle{
+  margin-top:4px;
+  color:var(--muted);
+  font-size:13px;
+}
+.status{
+  padding:8px 12px;
+  border-radius:999px;
+  background:#fff;
+  border:1px solid var(--line);
+  font-size:12px;
+  color:var(--muted);
+}
+.frame-wrap{
+  padding:18px;
+}
+iframe{
+  width:100%;
+  min-height:760px;
+  border:0;
+  border-radius:18px;
+  background:#fff;
+}
+.log-card{
+  padding:18px 20px 20px;
+}
+.log-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  margin-bottom:14px;
+}
+.log-title{
+  font-size:16px;
+  font-weight:700;
+}
+.log-actions{
+  display:flex;
+  gap:8px;
+}
+.log-actions button{
+  width:auto;
+  padding:9px 12px;
+  border-radius:12px;
+}
+#log{
+  max-height:320px;
+  overflow:auto;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:#fff;
+}
+.entry{
+  padding:11px 13px;
+  border-bottom:1px solid #efe7dc;
+  font-size:12px;
+  line-height:1.55;
+  word-break:break-word;
+}
+.entry:last-child{border-bottom:0}
+.entry strong{
+  color:var(--accent);
+}
+@media (max-width:1100px){
+  .shell{grid-template-columns:1fr}
+  .sidebar{position:static}
+}
+@media (max-width:720px){
+  .shell{padding:14px}
+  .frame-head{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="panel sidebar">
+    <div class="eyebrow">Preview Host</div>
+    <h1>Fashion Trends widget harness</h1>
+    <p class="copy">
+      This page acts like the ChatGPT host. It responds to the widget's JSON-RPC bridge,
+      sends demo tool results, and handles follow-up tool calls triggered from inside the UI.
+    </p>
+
+    <div class="section-label">Demo States</div>
+    <div class="controls">
+      <button type="button" data-demo="colors">
+        <strong>Color momentum</strong>
+        <span>Show the editorial color card with swatches, contribution, and follow-up actions.</span>
+      </button>
+      <button type="button" data-demo="posts">
+        <strong>Trending posts</strong>
+        <span>Render a dense post wall with likes, trend score, image proxy URLs, and metadata.</span>
+      </button>
+      <button type="button" data-demo="entities">
+        <strong>Brand ranking</strong>
+        <span>Load the leaderboard state used for top brands and influencer comparisons.</span>
+      </button>
+      <button type="button" data-demo="apparel">
+        <strong>Apparel breakdown</strong>
+        <span>Preview ranked silhouettes and category breakdown visuals.</span>
+      </button>
+      <button type="button" data-demo="timeline">
+        <strong>Trend momentum</strong>
+        <span>Open the month-over-month comparison card with momentum data.</span>
+      </button>
+      <button type="button" data-demo="overview">
+        <strong>Dataset overview</strong>
+        <span>Inspect the analytics overview card for the full fashion dataset.</span>
+      </button>
+      <button type="button" data-demo="query">
+        <strong>SQL table</strong>
+        <span>Preview the query-result table layout used by the custom SQL tool.</span>
+      </button>
+      <button type="button" data-demo="error">
+        <strong>Error state</strong>
+        <span>Verify the fallback error presentation and sizing behavior.</span>
+      </button>
+    </div>
+
+    <div class="meta">
+      <div class="meta-item">
+        <strong>Widget Source</strong>
+        <span><code>/widget/app.html</code></span>
+      </div>
+      <div class="meta-item">
+        <strong>Preview Route</strong>
+        <span><code>/preview</code> or <code>/test-harness.html</code></span>
+      </div>
+      <div class="meta-item">
+        <strong>Bridge Mode</strong>
+        <span>Demo host for <code>ui/initialize</code>, <code>tools/call</code>, <code>ui/message</code>, and <code>ui/open-link</code></span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <section class="panel frame-card">
+      <div class="frame-head">
+        <div>
+          <div class="frame-title">Embedded widget</div>
+          <div class="frame-subtitle">Rendered inside an iframe and driven through the same JSON-RPC methods used by ChatGPT.</div>
+        </div>
+        <div class="status" id="status">Waiting for widget initialization</div>
+      </div>
+      <div class="frame-wrap">
+        <iframe id="widget" src="/widget/app.html" title="Fashion Trends widget"></iframe>
+      </div>
+    </section>
+
+    <section class="panel log-card">
+      <div class="log-header">
+        <div class="log-title">Host log</div>
+        <div class="log-actions">
+          <button type="button" id="reload-frame">Reload widget</button>
+          <button type="button" id="clear-log">Clear log</button>
+        </div>
+      </div>
+      <div id="log"></div>
+    </section>
+  </main>
+</div>
+
+<script>
+const iframe = document.getElementById("widget");
+const logEl = document.getElementById("log");
+const statusEl = document.getElementById("status");
+const demoButtons = [...document.querySelectorAll("[data-demo]")];
+
+let pendingDemo = null;
+let currentDemo = null;
+
+const sampleImages = {
+  beige: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80",
+  green: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80",
+  terracotta: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=900&q=80",
+  saffron: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80",
+  indigo: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=80",
+  showroom: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=900&q=80",
+  boutique: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80",
+  runway: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80",
+  detail: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=900&q=80"
+};
+
+function proxied(url) {
+  return `/media?url=${encodeURIComponent(url)}`;
+}
+
+function log(message, kind = "info") {
+  const time = new Date().toLocaleTimeString();
+  const entry = document.createElement("div");
+  entry.className = "entry";
+  entry.innerHTML = `<strong>${time}</strong> ${escapeHtml(message)}`;
+  if (kind === "error") {
+    entry.style.background = "#fff6f2";
+  }
+  logEl.prepend(entry);
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function setStatus(text) {
+  statusEl.textContent = text;
+}
+
+function postToWidget(payload) {
+  iframe.contentWindow.postMessage(payload, "*");
+}
+
+function respond(id, result) {
+  postToWidget({ jsonrpc: "2.0", id, result });
+}
+
+function respondError(id, code, message) {
+  postToWidget({
+    jsonrpc: "2.0",
+    id,
+    error: { code, message },
+  });
+}
+
+function notifyToolResult(structuredContent) {
+  postToWidget({
+    jsonrpc: "2.0",
+    method: "ui/notifications/tool-result",
+    params: { structuredContent },
+  });
+  currentDemo = structuredContent.type;
+  setStatus(`Showing ${structuredContent.title || structuredContent.type}`);
+  log(`Sent ui/notifications/tool-result for "${structuredContent.type}"`);
+}
+
+function requestShape(base = {}) {
+  return {
+    category: base.category || "Ethnic RTW",
+    gender: base.gender || "Women",
+    time_period: base.time_period || "last_month",
+  };
+}
+
+function filterShape(base = {}) {
+  return {
+    category: base.category || "Ethnic RTW",
+    gender: base.gender || "Women",
+    time_period: base.time_period || "last_month",
+    source_filter: base.source_filter || null,
+    keywords: base.keywords || null,
+    metric: base.metric || null,
+  };
+}
+
+function colorDemo(overrides = {}) {
+  const request = requestShape(overrides);
+  const filters = filterShape(overrides);
+  const colors = [
+    {
+      rank: 1,
+      name: "Warm Sand",
+      pantone_name: "Safari",
+      pantone_code: "15-1214",
+      hex: "#d5b48c",
+      trend_score: 118.4,
+      total_impact: 9480,
+      contribution_percent: 22.4,
+      post_count: 68,
+      sample_images: [proxied(sampleImages.beige), proxied(sampleImages.terracotta)],
+      sample_permalinks: [
+        "https://instagram.com/p/demo-sand-1",
+        "https://instagram.com/p/demo-sand-2"
+      ]
+    },
+    {
+      rank: 2,
+      name: "Neem Leaf",
+      pantone_name: "Olive Branch",
+      pantone_code: "18-0527",
+      hex: "#727e44",
+      trend_score: 101.3,
+      total_impact: 8760,
+      contribution_percent: 18.1,
+      post_count: 54,
+      sample_images: [proxied(sampleImages.green)],
+      sample_permalinks: ["https://instagram.com/p/demo-green-1"]
+    },
+    {
+      rank: 3,
+      name: "Terracotta",
+      pantone_name: "Arabian Spice",
+      pantone_code: "18-1440",
+      hex: "#bc6248",
+      trend_score: 89.7,
+      total_impact: 7315,
+      contribution_percent: 15.7,
+      post_count: 47,
+      sample_images: [proxied(sampleImages.terracotta)],
+      sample_permalinks: ["https://instagram.com/p/demo-terra-1"]
+    },
+    {
+      rank: 4,
+      name: "Marigold",
+      pantone_name: "Golden Glow",
+      pantone_code: "14-0955",
+      hex: "#d99d2b",
+      trend_score: 76.2,
+      total_impact: 5890,
+      contribution_percent: 12.2,
+      post_count: 39,
+      sample_images: [proxied(sampleImages.saffron)],
+      sample_permalinks: ["https://instagram.com/p/demo-gold-1"]
+    },
+    {
+      rank: 5,
+      name: "Indigo Wash",
+      pantone_name: "Deep Well",
+      pantone_code: "19-3921",
+      hex: "#354974",
+      trend_score: 68.9,
+      total_impact: 5210,
+      contribution_percent: 10.5,
+      post_count: 31,
+      sample_images: [proxied(sampleImages.indigo)],
+      sample_permalinks: ["https://instagram.com/p/demo-indigo-1"]
+    }
+  ];
+
+  return {
+    type: "color_trends",
+    title: "Color Momentum",
+    request,
+    filters,
+    period_label: "Last month",
+    colors,
+    leader: colors[0]
+  };
+}
+
+function postCard(seed, patch = {}) {
+  return {
+    id: `demo-post-${seed}`,
+    author: patch.author || "Studio Aangan",
+    handle: patch.handle || "@studioaangan",
+    brand_name: patch.brand_name || "Studio Aangan",
+    user_name: patch.user_name || "Studio Aangan",
+    description: patch.description || "Handloom coordinates in warm sand tones with oversized floral placement and minimal jewelry styling.",
+    category: patch.category || "Ethnic RTW",
+    gender: patch.gender || "Women",
+    region: patch.region || "North India",
+    post_date: patch.post_date || "2026-04-15",
+    post_date_label: patch.post_date_label || "Apr 15, 2026",
+    likes: patch.likes || 18240,
+    trend_score: patch.trend_score || 32.8,
+    impact: patch.impact || 4650,
+    image_url: patch.image_url || proxied(sampleImages.showroom),
+    permalink: patch.permalink || `https://instagram.com/p/demo-post-${seed}`,
+    pantone_name: patch.pantone_name || "Safari",
+    hex: patch.hex || "#d5b48c",
+    apparel: patch.apparel || "Kurta Set",
+    print_name: patch.print_name || "Oversized Floral",
+    fabric: patch.fabric || "Cotton Slub"
+  };
+}
+
+function postsDemo(overrides = {}) {
+  const request = requestShape(overrides);
+  const filters = filterShape(overrides);
+  if (overrides.keywords) {
+    filters.keywords = overrides.keywords;
+  }
+  const posts = [
+    postCard(1, {
+      likes: 18240,
+      trend_score: 32.8,
+      image_url: proxied(sampleImages.showroom),
+      author: "Studio Aangan",
+      handle: "@studioaangan",
+      region: "North India",
+      apparel: "Kurta Set",
+      fabric: "Cotton Slub"
+    }),
+    postCard(2, {
+      likes: 15310,
+      trend_score: 29.6,
+      image_url: proxied(sampleImages.green),
+      author: "Label Meher",
+      handle: "@labelmeher",
+      pantone_name: "Olive Branch",
+      hex: "#727e44",
+      apparel: "Co-ord Set",
+      print_name: "Buta",
+      fabric: "Linen Blend"
+    }),
+    postCard(3, {
+      likes: 12110,
+      trend_score: 28.1,
+      image_url: proxied(sampleImages.terracotta),
+      author: "Suta",
+      handle: "@suta_bombay",
+      apparel: "Saree",
+      print_name: "Solid",
+      fabric: "Mul Cotton"
+    }),
+    postCard(4, {
+      likes: 9800,
+      trend_score: 24.4,
+      image_url: proxied(sampleImages.detail),
+      author: "The Loom Edit",
+      handle: "@theloomedit",
+      apparel: "Dress",
+      print_name: "Block Print",
+      fabric: "Voile"
+    })
+  ];
+
+  return {
+    type: "post_grid",
+    title: overrides.title || "Trending Posts",
+    view: overrides.view || "trending_posts",
+    request,
+    filters,
+    query_label: overrides.keywords || null,
+    summary: {
+      post_count: posts.length,
+      average_trend_score: 28.7,
+      top_likes: 18240
+    },
+    posts
+  };
+}
+
+function entityDemo(overrides = {}) {
+  const entityType = overrides.entity_type || "brands";
+  const request = {
+    entity_type: entityType,
+    category: overrides.category || "Ethnic RTW",
+    time_period: overrides.time_period || "last_month",
+    source_filter: overrides.source_filter || "instagram",
+    limit: 10
+  };
+  const filters = filterShape({
+    category: request.category,
+    time_period: request.time_period,
+    source_filter: request.source_filter
+  });
+  const entities = [
+    {
+      rank: 1,
+      name: entityType === "influencers" ? "Aakriti Rana" : "Studio Aangan",
+      handle: entityType === "influencers" ? "@aakritiranaofficial" : "@studioaangan",
+      post_count: 24,
+      total_trend_score: 284.4,
+      sample_images: [proxied(sampleImages.showroom), proxied(sampleImages.beige)],
+      sample_permalinks: ["https://instagram.com/p/demo-entity-1"]
+    },
+    {
+      rank: 2,
+      name: entityType === "influencers" ? "Masoom Minawala" : "Suta",
+      handle: entityType === "influencers" ? "@masoomminawala" : "@suta_bombay",
+      post_count: 21,
+      total_trend_score: 243.8,
+      sample_images: [proxied(sampleImages.green)],
+      sample_permalinks: ["https://instagram.com/p/demo-entity-2"]
+    },
+    {
+      rank: 3,
+      name: entityType === "influencers" ? "Komal Pandey" : "Label Meher",
+      handle: entityType === "influencers" ? "@komalpandeyofficial" : "@labelmeher",
+      post_count: 18,
+      total_trend_score: 198.2,
+      sample_images: [proxied(sampleImages.terracotta)],
+      sample_permalinks: ["https://instagram.com/p/demo-entity-3"]
+    }
+  ];
+
+  return {
+    type: "entity_rankings",
+    title: entityType === "influencers" ? "Top Influencers" : "Top Brands",
+    request,
+    filters,
+    entity_type: entityType,
+    entities,
+    leader: entities[0]
+  };
+}
+
+function breakdownDemo(overrides = {}) {
+  const kind = overrides.kind || "apparel";
+  const request = {
+    category: overrides.category || "Ethnic RTW",
+    gender: overrides.gender || "Women",
+    time_period: overrides.time_period || "last_month",
+    limit: 10,
+    group_by: overrides.group_by || (kind === "print_pattern" ? "print_name" : "apparel_name")
+  };
+
+  const labelSets = {
+    apparel: [
+      ["Kurta Set", 64, 219.4],
+      ["Saree", 48, 172.2],
+      ["Co-ord Set", 41, 149.8]
+    ],
+    print_pattern: [
+      ["Oversized Floral", 36, 140.2],
+      ["Buta", 29, 121.6],
+      ["Ajrakh Geometry", 24, 108.9]
+    ],
+    fabric: [
+      ["Cotton Slub", 44, 163.4],
+      ["Linen Blend", 32, 137.1],
+      ["Mul Cotton", 27, 116.8]
+    ]
+  };
+
+  const items = (labelSets[kind] || labelSets.apparel).map(([label, postCount, score], index) => ({
+    label,
+    post_count: postCount,
+    total_trend_score: score,
+    sample_images: [proxied(sampleImages.showroom), proxied(sampleImages.detail)].slice(0, index + 1),
+    sample_permalinks: [`https://instagram.com/p/demo-breakdown-${kind}-${index + 1}`]
+  }));
+
+  const titles = {
+    apparel: "Apparel Trends",
+    print_pattern: "Print and Pattern Trends",
+    fabric: "Fabric Trends"
+  };
+
+  return {
+    type: "trend_breakdown",
+    title: titles[kind] || "Trend Breakdown",
+    kind,
+    request,
+    filters: filterShape(request),
+    items,
+    leader: items[0]
+  };
+}
+
+function timelineDemo(overrides = {}) {
+  const request = {
+    metric: overrides.metric || "posts",
+    category: overrides.category || "Ethnic RTW",
+    gender: overrides.gender || "Women"
+  };
+  const filters = filterShape({
+    category: request.category,
+    gender: request.gender,
+    metric: request.metric
+  });
+
+  if (request.metric === "posts") {
+    const series = [
+      { month: "2026-01-01", month_label: "Jan 2026", post_count: 184, avg_trend_score: 19.8, total_likes: 208000, prev_month_posts: 0, growth_percent: null },
+      { month: "2026-02-01", month_label: "Feb 2026", post_count: 211, avg_trend_score: 21.7, total_likes: 248300, prev_month_posts: 184, growth_percent: 14.67 },
+      { month: "2026-03-01", month_label: "Mar 2026", post_count: 238, avg_trend_score: 23.5, total_likes: 286500, prev_month_posts: 211, growth_percent: 12.8 },
+      { month: "2026-04-01", month_label: "Apr 2026", post_count: 262, avg_trend_score: 26.2, total_likes: 328900, prev_month_posts: 238, growth_percent: 10.08 }
+    ];
+    return {
+      type: "time_comparison",
+      title: "Trend Momentum",
+      metric: "posts",
+      mode: "series",
+      request,
+      filters,
+      series,
+      latest: series[series.length - 1]
+    };
+  }
+
+  const periods = [
+    {
+      month: "2026-03-01",
+      month_label: "Mar 2026",
+      items: [
+        { rank: 1, label: "Warm Sand", post_count: 54, total_trend_score: 117.6 },
+        { rank: 2, label: "Neem Leaf", post_count: 47, total_trend_score: 104.8 },
+        { rank: 3, label: "Terracotta", post_count: 41, total_trend_score: 89.5 }
+      ]
+    },
+    {
+      month: "2026-04-01",
+      month_label: "Apr 2026",
+      items: [
+        { rank: 1, label: "Warm Sand", post_count: 68, total_trend_score: 118.4 },
+        { rank: 2, label: "Neem Leaf", post_count: 54, total_trend_score: 101.3 },
+        { rank: 3, label: "Marigold", post_count: 39, total_trend_score: 76.2 }
+      ]
+    }
+  ];
+
+  return {
+    type: "time_comparison",
+    title: `${request.metric.charAt(0).toUpperCase()}${request.metric.slice(1)} Over Time`,
+    metric: request.metric,
+    mode: "ranked",
+    request,
+    filters,
+    periods,
+    latest_period: periods[periods.length - 1]
+  };
+}
+
+function overviewDemo() {
+  return {
+    type: "database_overview",
+    title: "Fashion Trend Dataset",
+    request: {},
+    filters: {
+      category: null,
+      gender: null,
+      time_period: null,
+      source_filter: null,
+      keywords: null,
+      metric: null
+    },
+    overall_stats: {
+      total_unique_posts: 18924,
+      total_brands: 346,
+      total_influencers: 1298,
+      total_categories: 9,
+      avg_trend_score: 18.6
+    },
+    category_distribution: [
+      { category: "Ethnic RTW", post_count: 5420 },
+      { category: "Western RTW", post_count: 4112 },
+      { category: "Sarees", post_count: 3987 },
+      { category: "Streetwear", post_count: 1864 }
+    ],
+    gender_distribution: [
+      { gender: "Women", post_count: 15104 },
+      { gender: "Men", post_count: 3298 },
+      { gender: "Others", post_count: 522 }
+    ]
+  };
+}
+
+function queryDemo(overrides = {}) {
+  return {
+    type: "query_result",
+    title: "SQL Query Result",
+    request: {
+      sql_query: overrides.sql_query || "SELECT category, COUNT(*) AS posts, ROUND(AVG(trend_score), 2) AS avg_score FROM trend_analysis_mv GROUP BY category ORDER BY avg_score DESC LIMIT 5"
+    },
+    row_count: 5,
+    columns: ["category", "posts", "avg_score"],
+    rows: [
+      { category: "Streetwear", posts: 1864, avg_score: 24.7 },
+      { category: "Sarees", posts: 3987, avg_score: 22.8 },
+      { category: "Ethnic RTW", posts: 5420, avg_score: 21.3 },
+      { category: "Western RTW", posts: 4112, avg_score: 18.6 },
+      { category: "Beauty", posts: 960, avg_score: 14.2 }
+    ],
+    truncated: false
+  };
+}
+
+function errorDemo(overrides = {}) {
+  return {
+    type: "error",
+    title: overrides.title || "Backend unavailable",
+    message: overrides.message || "The live backend is not connected in preview mode. The widget is rendering the host-provided fallback state instead.",
+    request: overrides.request || {}
+  };
+}
+
+const demos = {
+  colors: () => colorDemo(),
+  posts: () => postsDemo(),
+  entities: () => entityDemo(),
+  apparel: () => breakdownDemo({ kind: "apparel" }),
+  timeline: () => timelineDemo(),
+  overview: () => overviewDemo(),
+  query: () => queryDemo(),
+  error: () => errorDemo()
+};
+
+function resolveToolCall(name, args = {}) {
+  switch (name) {
+    case "get_color_trends":
+      return colorDemo(args);
+    case "get_trending_posts":
+      return postsDemo(args);
+    case "get_top_brands_or_influencers":
+      return entityDemo(args);
+    case "get_apparel_trends":
+      return breakdownDemo({ ...args, kind: "apparel" });
+    case "get_print_pattern_trends":
+      return breakdownDemo({ ...args, kind: "print_pattern" });
+    case "get_fabric_trends":
+      return breakdownDemo({ ...args, kind: "fabric" });
+    case "get_database_statistics":
+      return overviewDemo();
+    case "search_posts_by_keywords":
+      return postsDemo({
+        ...args,
+        title: "Keyword Search",
+        view: "search_results"
+      });
+    case "compare_time_periods":
+      return timelineDemo(args);
+    case "execute_custom_sql":
+      return queryDemo(args);
+    default:
+      return errorDemo({
+        title: `Unsupported demo tool: ${name}`,
+        request: args
+      });
+  }
+}
+
+function markActiveButton(name) {
+  demoButtons.forEach((button) => {
+    button.style.background = button.dataset.demo === name ? "#1f1d1a" : "#fff";
+    button.style.color = button.dataset.demo === name ? "#fff" : "";
+    button.style.borderColor = button.dataset.demo === name ? "#1f1d1a" : "";
+  });
+}
+
+window.addEventListener("message", (event) => {
+  if (event.source !== iframe.contentWindow) {
+    return;
+  }
+
+  const message = event.data;
+  if (!message || message.jsonrpc !== "2.0") {
+    return;
+  }
+
+  if (message.method === "ui/initialize" && typeof message.id === "number") {
+    log("Widget requested ui/initialize");
+    respond(message.id, {
+      protocolVersion: "2026-01-26",
+      hostInfo: { name: "fashion-trends-harness", version: "1.0.0" },
+      hostCapabilities: {},
+      hostContext: { platform: "web-preview" }
+    });
+    setStatus("Bridge initialized, waiting for first result");
+    return;
+  }
+
+  if (message.method === "ui/notifications/initialized") {
+    log("Widget confirmed initialization");
+    setStatus("Widget initialized");
+    const initialDemo = pendingDemo || "colors";
+    pendingDemo = null;
+    markActiveButton(initialDemo);
+    setTimeout(() => notifyToolResult(demos[initialDemo]()), 120);
+    return;
+  }
+
+  if (message.method === "ui/notifications/size-changed") {
+    const height = Math.max(720, Number(message.params?.height) || 720);
+    iframe.style.height = `${height + 8}px`;
+    log(`Widget resized to ${message.params?.width || "?"}x${height}`);
+    return;
+  }
+
+  if (message.method === "tools/call" && typeof message.id === "number") {
+    const toolName = message.params?.name || "unknown";
+    const args = message.params?.arguments || {};
+    log(`Widget called tool "${toolName}" with ${JSON.stringify(args)}`);
+    try {
+      const structuredContent = resolveToolCall(toolName, args);
+      respond(message.id, { structuredContent });
+    } catch (error) {
+      respondError(message.id, -32603, error?.message || "Tool simulation failed");
+    }
+    return;
+  }
+
+  if (message.method === "ui/message" && typeof message.id === "number") {
+    const text = message.params?.content?.map((item) => item.text).filter(Boolean).join(" ") || "(empty)";
+    log(`Widget sent ui/message: ${text}`);
+    respond(message.id, {});
+    return;
+  }
+
+  if (message.method === "ui/open-link" && typeof message.id === "number") {
+    const url = message.params?.url || "";
+    log(`Widget requested ui/open-link for ${url}`);
+    respond(message.id, {});
+    if (url) {
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+    return;
+  }
+
+  log(`Unhandled widget message: ${JSON.stringify(message).slice(0, 200)}`);
+});
+
+demoButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const name = button.dataset.demo;
+    markActiveButton(name);
+    notifyToolResult(demos[name]());
+  });
+});
+
+document.getElementById("reload-frame").addEventListener("click", () => {
+  pendingDemo = currentDemo || "colors";
+  setStatus("Reloading widget");
+  iframe.src = `/widget/app.html?ts=${Date.now()}`;
+  log("Reloaded widget iframe");
+});
+
+document.getElementById("clear-log").addEventListener("click", () => {
+  logEl.innerHTML = "";
+});
+
+window.addEventListener("load", () => {
+  const demo = new URLSearchParams(window.location.search).get("demo");
+  pendingDemo = demos[demo] ? demo : "colors";
+  markActiveButton(pendingDemo);
+  log(`Harness ready. Pending demo: ${pendingDemo}`);
+});
+</script>
+</body>
+</html>

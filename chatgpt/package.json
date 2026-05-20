@@ -1,0 +1,24 @@
+{
+  "name": "fashion-trends-chatgpt-ui",
+  "version": "1.0.0",
+  "description": "MCP Apps bridge for rendering Fashion Trends widgets inside ChatGPT",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "verify": "node verify.js"
+  },
+  "keywords": ["mcp", "chatgpt", "fashion", "trends"],
+  "author": "Fashion Trends Team",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@modelcontextprotocol/ext-apps": "^1.0.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment files
+.env
+chatgpt/.env
+
+# Build / packaging
+build/
+dist/
+*.egg-info/
+.dist/
+
+# Node
+chatgpt/node_modules/
+npm-debug.log*
+
+# Local runtime artifacts
+*.log
+tmp-*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
