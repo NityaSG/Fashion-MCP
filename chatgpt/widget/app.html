@@ -89,6 +89,14 @@ body{
   border-bottom:1px solid var(--line);
 }
 
+.hero-topline{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:12px;
+}
+
 .hero::before{
   content:"";
   position:absolute;
@@ -115,7 +123,27 @@ body{
   letter-spacing:.14em;
   font-weight:700;
   color:var(--accent-deep);
-  margin-bottom:6px;
+  margin-bottom:0;
+  text-align:right;
+}
+
+.brand-mark{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:8px 12px;
+  border:1px solid rgba(217,196,175,.82);
+  border-radius:16px;
+  background:rgba(255,255,255,.84);
+  box-shadow:0 10px 24px rgba(110,71,49,.07);
+  backdrop-filter:blur(10px);
+}
+
+.brand-mark img{
+  display:block;
+  width:118px;
+  max-width:100%;
+  height:auto;
 }
 
 .title{
@@ -906,6 +934,12 @@ tr:last-child td{border-bottom:none}
 }
 
 @media (max-width: 720px){
+  .hero-topline{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:10px;
+  }
+  .eyebrow{text-align:left}
   .title{font-size:23px}
   .hero-meta,
   .brief-grid,
@@ -937,6 +971,7 @@ let currentStructuredContent = null;
 let resizeObserver = null;
 let resizeQueued = false;
 let pendingAction = null;
+const BRAND_LOGO_URL = "/static/image/ich-next-logo.png";
 
 function rpcNotify(method, params = {}) {
   window.parent.postMessage({ jsonrpc: "2.0", method, params }, "*");
@@ -1229,7 +1264,12 @@ function renderShell({ eyebrow, title, subtitle, accent = "var(--accent)", meta 
   return `
     <section class="shell" style="--local-accent:${accent}">
       <header class="hero">
-        <div class="eyebrow">${esc(eyebrow)}</div>
+        <div class="hero-topline">
+          <div class="brand-mark">
+            <img src="${BRAND_LOGO_URL}" alt="ICH NEXT">
+          </div>
+          ${eyebrow ? `<div class="eyebrow">${esc(eyebrow)}</div>` : ""}
+        </div>
         <div class="title">${esc(title)}</div>
         ${subtitle ? `<div class="subtitle">${esc(subtitle)}</div>` : ""}
         ${meta}

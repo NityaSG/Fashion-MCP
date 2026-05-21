@@ -1415,7 +1415,7 @@ async def compare_time_periods(
 # ============================================================================
 
 if __name__ == "__main__":
-    transport = os.getenv("MCP_TRANSPORT", "stdio").strip().lower()
+    transport = os.getenv("MCP_TRANSPORT", "http").strip().lower()
 
     if transport in {"http", "streamable-http", "sse"}:
         host = os.getenv("MCP_HOST", os.getenv("FASTMCP_HOST", "127.0.0.1"))
