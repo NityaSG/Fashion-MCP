@@ -1418,8 +1418,8 @@ if __name__ == "__main__":
     transport = os.getenv("MCP_TRANSPORT", "http").strip().lower()
 
     if transport in {"http", "streamable-http", "sse"}:
-        host = os.getenv("MCP_HOST", os.getenv("FASTMCP_HOST", "127.0.0.1"))
-        port = int(os.getenv("MCP_PORT", os.getenv("FASTMCP_PORT", "8000")))
+        host = os.getenv("MCP_HOST", os.getenv("FASTMCP_HOST", "0.0.0.0"))
+        port = int(os.getenv("MCP_PORT", os.getenv("FASTMCP_PORT", "8501")))
         mcp.run(transport=transport, host=host, port=port)
     else:
         # Default to stdio for desktop MCP clients and local testing.

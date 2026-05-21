@@ -78,10 +78,10 @@ function loadLocalEnv(envFileUrl, { override = false } = {}) {
 loadLocalEnv(new URL(".env.example", import.meta.url));
 loadLocalEnv(new URL(".env", import.meta.url), { override: true });
 
-const PORT = Number(process.env.PORT ?? 8787);
+const PORT = Number(process.env.PORT ?? 8500);
 const LEGACY_API_URL = (process.env.API_URL ?? "").trim();
 const BACKEND_MCP_URL = normalizeBackendMcpUrl(
-  process.env.BACKEND_MCP_URL ?? LEGACY_API_URL ?? "http://127.0.0.1:8000/mcp"
+  process.env.BACKEND_MCP_URL ?? LEGACY_API_URL ?? "http://127.0.0.1:8501/mcp"
 );
 const MEDIA_CDN_BASE_URL = normalizeBaseUrl(
   process.env.MEDIA_CDN_BASE_URL ?? "https://d99zyv0ifyenn.cloudfront.net"
